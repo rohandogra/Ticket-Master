@@ -1,0 +1,32 @@
+{
+  "name": "ticket-master-bk",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.12.0"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && node index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start-dev": "concurrently \"nodemon\" \"cd client/ && npm start\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.12",
+    "otp-generator": "^1.1.0",
+    "twilio": "^3.48.1",
+    "validator": "^11.1.0"
+  }
+}

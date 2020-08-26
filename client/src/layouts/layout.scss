@@ -1,0 +1,43 @@
+$tablet: 860px;
+$tablet700: 700px;
+$mobile620: 620px;
+
+@mixin tablet {
+  @media (max-width:#{$tablet}) {
+    @content;
+  }
+}
+@mixin tablet700 {
+  @media (max-width:#{$tablet700}) {
+    @content;
+  }
+}
+
+@mixin mobile620 {
+  @media (max-width:#{$mobile620}) {
+    @content;
+  }
+}
+
+.layout {
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-top: 3rem;
+  @include tablet {
+    margin-top: 48px;
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+
+  @include tablet700 {
+    margin-top: 48px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  @include mobile620 {
+    margin-top: 48px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}

@@ -1,0 +1,10 @@
+.modal__container {
+  display: flex;
+}
+.modal__pageHeader {
+  flex: 1;
+}
+.modal__btn {
+  flex: 0;
+  justify-items: flex-end;
+}

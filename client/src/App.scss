@@ -1,0 +1,135 @@
+.App {
+  text-align: center;
+}
+
+.ant-input[disabled] {
+  background-color: white;
+  border: none;
+  color: black;
+  cursor: default;
+}
+
+.ant-page-heade {
+  padding: 16px 0px !important;
+}
+
+.ant-modal-close-x {
+  display: none;
+}
+
+.ant-page-header {
+  padding: 0;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.modal__btn {
+  display: flex;
+  padding-right: 5px;
+}
+
+.modal__submit {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.modal__close {
+  flex: 1;
+}
+
+hr {
+  margin-top: 0;
+}
+.ant-btn {
+  color: #128aec;
+  background: #fff;
+  border-color: #128aec;
+}
+
+.ant-btn-danger {
+  color: #fff;
+  background: #ff4d4f;
+  border-color: #ff4d4f;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-btn-primary {
+  color: #fff;
+  background: #1890ff;
+  border-color: #1890ff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-tabs-tab ant-tabs-tab-active {
+  outline: none;
+}
+
+.loading-indicator:before {
+  content: "";
+  background: rgba(000, 000, 000, 0.4);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.loading-indicator:after {
+  content: "LOADING...";
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  z-index: 1001;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.ant-spin-spinning {
+  padding-top: 10px;
+  // margin-left: 40%;
+}
+
+.ant-select-disabled.ant-select-multiple .ant-select-selector {
+  color: black;
+  background: #fff;
+  cursor: default;
+  border: none;
+}
+
+.ant-select-disabled.ant-select-single:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border: none;
+  color: black;
+  background: #fff;
+  cursor: default;
+}
+
+.ant-radio-wrapper ant-radio-wrapper-checked ant-radio-wrapper-disabled {
+  color: black;
+}
+
+.ant-radio-disabled + span {
+  color: black;
+  cursor: default;
+}
+
+.ant-radio-disabled .ant-radio-inner {
+  cursor: default;
+}
+
+ant-radio-inner::after {
+  background-color: #1890ff !important;
+}
+.ant-radio-disabled ant-radio-checked .ant-radio-inner {
+  border-color: #1890ff;
+  /* border-color: #d9d9d9 !important; */
+  cursor: not-allowed;
+}
