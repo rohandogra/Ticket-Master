@@ -9,9 +9,9 @@ const router = require("./config/routes");
 const cors = require("cors");
 configDB();
 
-app.use(express.static(path.join(__dirname, "client/build")));
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client/bud")));
 
 app.use("/api/user", router);
 
