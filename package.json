@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm install && node index.js",
     "server": "nodemon server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run-script build",
     "start-dev": "concurrently \"nodemon\" \"cd client/ && npm start\" "
   },
   "keywords": [],
