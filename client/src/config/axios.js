@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const axios = Axios.create({
-  baseURL: `https://ticket-master--rohan.herokuapp.com/api/user`,
+  baseURL: `api/user`,
 });
 
 axios.interceptors.request.use(function (config) {
