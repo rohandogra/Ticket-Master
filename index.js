@@ -14,14 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.use("/api/user", router);
-
-app.get("/", (req, res) => {
-  res.send("Hello from MERN");
-});
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "client/build/index.html"));
 });
+
+app.use("/api/user", router);
 
 app.listen(port, () => {
   console.log("Listing node server on port number", port);

@@ -2,10 +2,6 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 
-// router.use(function (req, res) {
-//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
-// });
-
 const customerController = require("../app/controllers/customerController");
 const departmentController = require("../app/controllers/departmentController");
 const ticketsController = require("../app/controllers/ticketsController");
