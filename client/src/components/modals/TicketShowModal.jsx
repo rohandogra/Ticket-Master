@@ -13,6 +13,7 @@ import * as Yup from "yup";
 const { Option } = Select;
 const { TextArea } = Input;
 const validationSchema = Yup.object().shape({
+  code: Yup.string().required("Required"),
   title: Yup.string().required("Required"),
   customerId: Yup.string().required("Required"),
   departmentId: Yup.string().required("Required"),
@@ -37,15 +38,11 @@ function TicketShowModal(props) {
     props.getEmployees();
   }, [ticket_ID]);
 
-  const id =
-    departmentSelected === "" ? ticket?.departmentId?._id : departmentSelected;
-
+  const id = departmentSelected === "" ? ticket?.departmentId?._id : departmentSelected;
   const filtredEmployees = employees?.filter(
-    (emp) => emp.department._id === id
+    (emp) => emp?.department?._id === id
   );
 
-  console.log(departmentSelected, "departments");
-  console.log(departments, "departments All");
 
   return (
     <Modal
@@ -102,18 +99,18 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="code"
-                    className="form__inputr"
-                    placeholder="Enter Code"
-                    type="text"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <Field
+                      name="code"
+                      className="form__inputr"
+                      placeholder="Enter Code"
+                      type="text"
+                      as={Input}
+                      disabled={disabled}
+                    />
+                  )}
                 <ErrorMessage
                   name="code"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -123,22 +120,20 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field
-                      name="title"
-                      placeholder="Enter Title"
-                      type="text"
-                      as={Input}
-                      disabled={disabled}
-                    />
-                    <ErrorMessage
-                      name="title"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field
+                        name="title"
+                        placeholder="Enter Title"
+                        type="text"
+                        as={Input}
+                        disabled={disabled}
+                      />
+                      <ErrorMessage
+                        name="title"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <div className="form__inputContainer">
@@ -147,47 +142,45 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field name="customerId" validate={validate} fast={fast}>
-                      {({
-                        field: { value },
-                        form: { setFieldValue, setFieldTouched },
-                      }) => (
-                        <Select
-                          disabled={disabled}
-                          style={{ width: "100% " }}
-                          onChange={(value, option) => {
-                            setFieldValue("customerId", value);
-                            onChange && onChange(value, option);
-                          }}
-                          onBlur={(value) => {
-                            setFieldTouched("customerId");
-                            onBlur && onBlur(value);
-                          }}
-                          placeholder="Select Customer"
-                          // setting undefined will show the placeholder
-                          value={
-                            value === "" || value === null ? undefined : value
-                          }
-                          {...restProps}
-                        >
-                          {customers &&
-                            customers?.map((cust) => (
-                              <Option value={cust._id} key={cust._id}>
-                                {cust.name}
-                              </Option>
-                            ))}
-                        </Select>
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="customerId"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field name="customerId" validate={validate} fast={fast}>
+                        {({
+                          field: { value },
+                          form: { setFieldValue, setFieldTouched },
+                        }) => (
+                            <Select
+                              disabled={disabled}
+                              style={{ width: "100% " }}
+                              onChange={(value, option) => {
+                                setFieldValue("customerId", value);
+                                onChange && onChange(value, option);
+                              }}
+                              onBlur={(value) => {
+                                setFieldTouched("customerId");
+                                onBlur && onBlur(value);
+                              }}
+                              placeholder="Select Customer"
+                              // setting undefined will show the placeholder
+                              value={
+                                value === "" || value === null ? undefined : value
+                              }
+                              {...restProps}
+                            >
+                              {customers &&
+                                customers?.map((cust) => (
+                                  <Option value={cust._id} key={cust._id}>
+                                    {cust.name}
+                                  </Option>
+                                ))}
+                            </Select>
+                          )}
+                      </Field>
+                      <ErrorMessage
+                        name="customerId"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <div className="form__inputContainer">
@@ -196,50 +189,48 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field name="departmentId" validate={validate} fast={fast}>
-                      {({
-                        field: { value },
-                        form: { setFieldValue, setFieldTouched },
-                      }) => (
-                        <Select
-                          disabled={disabled}
-                          style={{ width: "100% " }}
-                          onChange={(value, option) => {
-                            setFieldValue(
-                              "departmentId",
-                              value,
-                              setDepartmentSelected(value)
-                            );
-                            onChange && onChange(value, option);
-                          }}
-                          onBlur={(value) => {
-                            setFieldTouched("departmentId");
-                            onBlur && onBlur(value);
-                          }}
-                          placeholder="Select Department"
-                          // setting undefined will show the placeholder
-                          value={
-                            value === "" || value === null ? undefined : value
-                          }
-                          {...restProps}
-                        >
-                          {departments.map((dep) => (
-                            <Option value={dep._id} key={dep._id}>
-                              {dep.name}
-                            </Option>
-                          ))}
-                        </Select>
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="departmentId"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field name="departmentId" validate={validate} fast={fast}>
+                        {({
+                          field: { value },
+                          form: { setFieldValue, setFieldTouched },
+                        }) => (
+                            <Select
+                              disabled={disabled}
+                              style={{ width: "100% " }}
+                              onChange={(value, option) => {
+                                setFieldValue(
+                                  "departmentId",
+                                  value,
+                                  setDepartmentSelected(value)
+                                );
+                                onChange && onChange(value, option);
+                              }}
+                              onBlur={(value) => {
+                                setFieldTouched("departmentId");
+                                onBlur && onBlur(value);
+                              }}
+                              placeholder="Select Department"
+                              // setting undefined will show the placeholder
+                              value={
+                                value === "" || value === null ? undefined : value
+                              }
+                              {...restProps}
+                            >
+                              {departments.map((dep) => (
+                                <Option value={dep._id} key={dep._id}>
+                                  {dep.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          )}
+                      </Field>
+                      <ErrorMessage
+                        name="departmentId"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
 
@@ -249,47 +240,45 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field name="employeesIds" validate={validate} fast={fast}>
-                      {({
-                        field: { value },
-                        form: { setFieldValue, setFieldTouched },
-                      }) => (
-                        <Select
-                          disabled={disabled}
-                          mode="multiple"
-                          style={{ width: "100% " }}
-                          onChange={(value, option) => {
-                            setFieldValue("employeesIds", value);
-                            onChange && onChange(value, option);
-                          }}
-                          onBlur={(value) => {
-                            setFieldTouched("employeesIds");
-                            onBlur && onBlur(value);
-                          }}
-                          placeholder="Select Employees"
-                          // setting undefined will show the placeholder
-                          value={
-                            value === "" || value === null ? undefined : value
-                          }
-                          {...restProps}
-                        >
-                          {filtredEmployees?.map((element) => (
-                            <Option value={element?._id} key={element?._id}>
-                              {element?.name}
-                            </Option>
-                          ))}
-                        </Select>
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="employeesIds"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field name="employeesIds" validate={validate} fast={fast}>
+                        {({
+                          field: { value },
+                          form: { setFieldValue, setFieldTouched },
+                        }) => (
+                            <Select
+                              disabled={disabled}
+                              mode="multiple"
+                              style={{ width: "100% " }}
+                              onChange={(value, option) => {
+                                setFieldValue("employeesIds", value);
+                                onChange && onChange(value, option);
+                              }}
+                              onBlur={(value) => {
+                                setFieldTouched("employeesIds");
+                                onBlur && onBlur(value);
+                              }}
+                              placeholder="Select Employees"
+                              // setting undefined will show the placeholder
+                              value={
+                                value === "" || value === null ? undefined : value
+                              }
+                              {...restProps}
+                            >
+                              {filtredEmployees?.map((element) => (
+                                <Option value={element?._id} key={element?._id}>
+                                  {element?.name}
+                                </Option>
+                              ))}
+                            </Select>
+                          )}
+                      </Field>
+                      <ErrorMessage
+                        name="employeesIds"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
 
@@ -299,22 +288,20 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field
-                      disabled={disabled}
-                      name="message"
-                      placeholder="Enter message"
-                      type="text"
-                      as={TextArea}
-                    />
-                    <ErrorMessage
-                      name="message"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field
+                        disabled={disabled}
+                        name="message"
+                        placeholder="Enter message"
+                        type="text"
+                        as={TextArea}
+                      />
+                      <ErrorMessage
+                        name="message"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
 
@@ -324,36 +311,34 @@ function TicketShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <div>
-                    <Field name="priority" validate={validate} fast={fast}>
-                      {({
-                        field: { value },
-                        form: { setFieldValue, setFieldTouched },
-                      }) => (
-                        <Radio.Group
-                          disabled={disabled}
-                          value={value}
-                          onChange={(event) => {
-                            setFieldValue("priority", event.target.value);
-                            setFieldTouched("priority", true, false);
-                            onChange && onChange(event);
-                          }}
-                          {...restProps}
-                        >
-                          <Radio value={"high"}>High</Radio>
-                          <Radio value={"medium"}>Medium</Radio>
-                          <Radio value={"low"}>Low</Radio>
-                        </Radio.Group>
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="priority"
-                      render={(msg) => (
-                        <div style={{ color: "red" }}>{msg}</div>
-                      )}
-                    />
-                  </div>
-                )}
+                    <div>
+                      <Field name="priority" validate={validate} fast={fast}>
+                        {({
+                          field: { value },
+                          form: { setFieldValue, setFieldTouched },
+                        }) => (
+                            <Radio.Group
+                              disabled={disabled}
+                              value={value}
+                              onChange={(event) => {
+                                setFieldValue("priority", event.target.value);
+                                setFieldTouched("priority", true, false);
+                                onChange && onChange(event);
+                              }}
+                              {...restProps}
+                            >
+                              <Radio value={"high"}>High</Radio>
+                              <Radio value={"medium"}>Medium</Radio>
+                              <Radio value={"low"}>Low</Radio>
+                            </Radio.Group>
+                          )}
+                      </Field>
+                      <ErrorMessage
+                        name="priority"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <div className="modal__btn">

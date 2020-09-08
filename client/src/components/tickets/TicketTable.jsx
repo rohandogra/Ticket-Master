@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { showModal } from "../../redux/actions/modalsAction";
 import { Table, Button, Checkbox, Tag } from "antd";
 import { deleteTicket, updateTicket } from "../../redux/actions/ticketAction";
@@ -118,7 +118,7 @@ function TicketTable(props) {
     key: ticket?._id,
     code: ticket?.code,
     title: ticket?.title,
-    customerId: ticket?.customerId.name,
+    customerId: ticket?.customerId?.name,
     departmentId: ticket.departmentId?.name,
     employeesIds: ticket.employeesIds.map((emp) => emp),
     priority: ticket.priority,
@@ -130,12 +130,12 @@ function TicketTable(props) {
     key: ticket?._id,
     code: ticket?.code,
     title: ticket?.title,
-    customerId: ticket?.customerId.name,
+    customerId: ticket?.customerId?.name,
     departmentId: ticket.departmentId?.name,
-    employeesIds: ticket.employeesIds.map((emp) => emp),
-    priority: ticket.priority,
-    isResolved: { id: ticket._id, state: ticket.isResolved },
-    action: ticket._id,
+    employeesIds: ticket?.employeesIds?.map((emp) => emp),
+    priority: ticket?.priority,
+    isResolved: { id: ticket?._id, state: ticket?.isResolved },
+    action: ticket?._id,
   }));
 
   return (
@@ -148,13 +148,13 @@ function TicketTable(props) {
           pagination={false}
         />
       ) : (
-        <Table
-          dataSource={EmployeesDataCompleted}
-          loading={props.loading}
-          columns={columns}
-          pagination={false}
-        />
-      )}
+          <Table
+            dataSource={EmployeesDataCompleted}
+            loading={props.loading}
+            columns={columns}
+            pagination={false}
+          />
+        )}
     </div>
   );
 }

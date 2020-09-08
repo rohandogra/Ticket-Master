@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Input, Button, Divider } from 'antd';
+import { UserOutlined, LockOutlined, MobileOutlined, MailOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { register } from '../../redux/actions/auth'
@@ -28,21 +28,28 @@ function Register(props) {
               <Form onSubmit={handleSubmit}>
                 <div className='input-wrapper mb-3'>
                   <label className=''>User Name</label>
-                  <Field className='' name='user_name' type='text' placeholder='Type your User Name' as={Input} prefix={<UserOutlined style={{
+                  <Field name='user_name' type='text' placeholder='Type your User Name' as={Input} prefix={<UserOutlined style={{
                     fontSize: 22,
                     color: '#adadad',
                   }} />} />
                 </div>
                 <div className='input-wrapper mb-3'>
                   <label className=''>Email</label>
-                  <Field className='' name='email' type='text' placeholder='Type your Email' as={Input} prefix={<UserOutlined style={{
+                  <Field name='email' type='text' placeholder='Type your Email' as={Input} prefix={<MailOutlined style={{
+                    fontSize: 22,
+                    color: '#adadad',
+                  }} />} />
+                </div>
+                <div className='input-wrapper mb-3'>
+                  <label className=''>Mobile</label>
+                  <Field name='mobile' type='text' placeholder='Type your Mobile Number' as={Input} prefix={<MobileOutlined style={{
                     fontSize: 22,
                     color: '#adadad',
                   }} />} />
                 </div>
                 <div className='input-wrapper'>
                   <label className=''>Password</label>
-                  <Field className='' name='password' type='password' placeholder="Type your password" as={Input} prefix={<LockOutlined style={{
+                  <Field name='password' type='password' placeholder="Type your password" as={Input} prefix={<LockOutlined style={{
                     fontSize: 22,
                     color: '#adadad',
                   }} />} />
@@ -52,12 +59,10 @@ function Register(props) {
                 </div>
               </Form>
               <div className='sign-up'>
-                <div className='sign-up-text-1'>
-                  Or Login
-                </div>
-                <div className='sign-up-text-2' onClick={() => props.history.push('/login')}>
+                <Divider>Or Login</Divider>
+                <Button className='float-right' onClick={() => props.history.push('/login')}>
                   Login
-                </div>
+                </Button>
               </div>
             </div>
           )}

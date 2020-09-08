@@ -1,12 +1,12 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 const axios = Axios.create({
-  baseURL: `https://ticket-master-new.herokuapp.com/api/user`,
+  baseURL: `https://ticket-master--rohan.herokuapp.com/api/user`,
 });
 
 axios.interceptors.request.use(function (config) {
-  const token = localStorage.getItem("token");
-  config.headers.Authorization = token ? `${token}` : "";
+  const token = localStorage.getItem('token');
+  config.headers.Authorization = token ? `${token}` : '';
 
   return config;
 });
@@ -16,11 +16,11 @@ axios.interceptors.response.use(
     return response;
   },
   function (error) {
-    const ms = error.message.split(" ")[5];
-    console.log(ms, "msg");
-    document.body.classList.remove("loading-indicator");
-    if (ms === "403") {
-      localStorage.removeItem("token");
+    const ms = error.message.split(' ')[5];
+    console.log(ms, 'msg');
+    document.body.classList.remove('loading-indicator');
+    if (ms === '403') {
+      localStorage.removeItem('token');
       // window.location.href = "/login";
     }
     return Promise.reject(error);

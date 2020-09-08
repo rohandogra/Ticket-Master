@@ -70,7 +70,6 @@ function CustomersShow(props) {
   useEffect(() => {
     if (customers.length === 0) return props.getCustomers();
   }, [customers._id, customers.name, customers.email]);
-  console.log(customers.length, "not");
   return (
     <Layout title="Customers" className="customerShow">
       <PageTitle

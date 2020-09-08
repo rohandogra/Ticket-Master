@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Input, Spin } from "antd";
 import { connect } from "react-redux";
 import { showModal } from "../../redux/actions/modalsAction";
@@ -8,16 +8,23 @@ import {
   updateCustomer,
   getCustomers,
 } from "../../redux/actions/customerAction";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import PageTitle from "../utilityComponents/PageTitle";
 import ModalButton from "../utilityComponents/ModalButton";
+import * as Yup from "yup";
+
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  mobile: Yup.number()
+    .required("Required")
+});
 
 const ShowCustomerModal = (props) => {
   document.title = props.modal === false ? "Customers" : "Customer Details";
 
   const id = JSON.parse(localStorage.getItem("Customer_ID"));
-
-  let formikRef = useRef(null);
 
   const [disabled, setDisabled] = useState(true);
 
@@ -44,16 +51,13 @@ const ShowCustomerModal = (props) => {
       footer={null}
     >
       <Formik
-        innerRef={(instance) => {
-          formikRef = instance;
-        }}
         initialValues={{
           name: props?.customer?.name || "",
           email: props?.customer?.email || "",
           mobile: props?.customer?.mobile || "",
         }}
         enableReinitialize={true}
-        // validate={validationSchema}
+        validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
           //   props.createCustomers(values);
           props.updateCustomer(values, id);
@@ -83,15 +87,21 @@ const ShowCustomerModal = (props) => {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="name"
-                    className="form__inputr"
-                    placeholder="Enter You're Full Name"
-                    type="text"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <div>
+                      <Field
+                        name="name"
+                        className="form__inputr"
+                        placeholder="Enter You're Full Name"
+                        type="text"
+                        as={Input}
+                        disabled={disabled}
+                      />
+                      <ErrorMessage
+                        name="name"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <div className="form__inputContainer">
@@ -100,14 +110,20 @@ const ShowCustomerModal = (props) => {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="email"
-                    placeholder="Enter You're Email"
-                    type="email"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <div>
+                      <Field
+                        name="email"
+                        placeholder="Enter You're Email"
+                        type="email"
+                        as={Input}
+                        disabled={disabled}
+                      />
+                      <ErrorMessage
+                        name="email"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <div className="form__inputContainer">
@@ -116,14 +132,20 @@ const ShowCustomerModal = (props) => {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="mobile"
-                    placeholder="Enter You're Mobile"
-                    type="number"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <div>
+                      <Field
+                        name="mobile"
+                        placeholder="Enter You're Mobile"
+                        type="number"
+                        as={Input}
+                        disabled={disabled}
+                      />
+                      <ErrorMessage
+                        name="mobile"
+                        render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
             <ModalButton

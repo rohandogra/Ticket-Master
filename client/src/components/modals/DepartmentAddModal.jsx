@@ -3,11 +3,16 @@ import { Modal, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { showModal } from "../../redux/actions/modalsAction";
 import { createDepartment } from "../../redux/actions/departmentAction";
-// import { withRouter } from "react-router-dom";
-import { Formik, Field, Form } from "formik";
-// import * as Yup from "yup";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import "./formModal.scss";
 import PageTitle from "../utilityComponents/PageTitle";
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .max(70, "Too Long!")
+    .required("Required")
+})
 
 function DepartmentAddModal(props) {
   return (
@@ -27,7 +32,7 @@ function DepartmentAddModal(props) {
       >
         <Formik
           initialValues={{ name: "" }}
-          // validate={validationSchema}
+          validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
             props.createDepartment(values);
             resetForm();
@@ -50,6 +55,10 @@ function DepartmentAddModal(props) {
                     placeholder="Enter Department Name"
                     type="text"
                     as={Input}
+                  />
+                  <ErrorMessage
+                    name="name"
+                    render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                   />
                 </div>
               </div>

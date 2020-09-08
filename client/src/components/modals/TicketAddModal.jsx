@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Children } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Input, Button, Select, Radio } from "antd";
 import PageTitle from "../utilityComponents/PageTitle";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -34,7 +34,7 @@ function TicketAddModal(props) {
   }, []);
 
   const filtredEmployees = employees.filter(
-    (emp) => emp.department._id == departmentSelected
+    (emp) => emp?.department?._id === departmentSelected
   );
 
   return (
@@ -88,7 +88,7 @@ function TicketAddModal(props) {
                 />
                 <ErrorMessage
                   name="code"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -103,7 +103,7 @@ function TicketAddModal(props) {
                 />
                 <ErrorMessage
                   name="title"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -115,33 +115,33 @@ function TicketAddModal(props) {
                     field: { value },
                     form: { setFieldValue, setFieldTouched },
                   }) => (
-                    <Select
-                      style={{ width: "100% " }}
-                      onChange={(value, option) => {
-                        setFieldValue("customerId", value);
-                        onChange && onChange(value, option);
-                      }}
-                      onBlur={(value) => {
-                        setFieldTouched("customerId");
-                        onBlur && onBlur(value);
-                      }}
-                      placeholder="Select Customer"
-                      // setting undefined will show the placeholder
-                      value={value === "" || value === null ? undefined : value}
-                      {...restProps}
-                    >
-                      {customers &&
-                        customers?.map((cust) => (
-                          <Option value={cust._id} key={cust._id}>
-                            {cust.name}
-                          </Option>
-                        ))}
-                    </Select>
-                  )}
+                      <Select
+                        style={{ width: "100% " }}
+                        onChange={(value, option) => {
+                          setFieldValue("customerId", value);
+                          onChange && onChange(value, option);
+                        }}
+                        onBlur={(value) => {
+                          setFieldTouched("customerId");
+                          onBlur && onBlur(value);
+                        }}
+                        placeholder="Select Customer"
+                        // setting undefined will show the placeholder
+                        value={value === "" || value === null ? undefined : value}
+                        {...restProps}
+                      >
+                        {customers &&
+                          customers?.map((cust) => (
+                            <Option value={cust._id} key={cust._id}>
+                              {cust.name}
+                            </Option>
+                          ))}
+                      </Select>
+                    )}
                 </Field>
                 <ErrorMessage
                   name="customerId"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -153,36 +153,36 @@ function TicketAddModal(props) {
                     field: { value },
                     form: { setFieldValue, setFieldTouched },
                   }) => (
-                    <Select
-                      style={{ width: "100% " }}
-                      onChange={(value, option) => {
-                        setFieldValue(
-                          "departmentId",
-                          value,
-                          setDepartmentSelected(value)
-                        );
-                        onChange && onChange(value, option);
-                      }}
-                      onBlur={(value) => {
-                        setFieldTouched("departmentId");
-                        onBlur && onBlur(value);
-                      }}
-                      placeholder="Select Department"
-                      // setting undefined will show the placeholder
-                      value={value === "" || value === null ? undefined : value}
-                      {...restProps}
-                    >
-                      {departments.map((dep) => (
-                        <Option value={dep._id} key={dep._id}>
-                          {dep.name}
-                        </Option>
-                      ))}
-                    </Select>
-                  )}
+                      <Select
+                        style={{ width: "100% " }}
+                        onChange={(value, option) => {
+                          setFieldValue(
+                            "departmentId",
+                            value,
+                            setDepartmentSelected(value)
+                          );
+                          onChange && onChange(value, option);
+                        }}
+                        onBlur={(value) => {
+                          setFieldTouched("departmentId");
+                          onBlur && onBlur(value);
+                        }}
+                        placeholder="Select Department"
+                        // setting undefined will show the placeholder
+                        value={value === "" || value === null ? undefined : value}
+                        {...restProps}
+                      >
+                        {departments.map((dep) => (
+                          <Option value={dep._id} key={dep._id}>
+                            {dep.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
                 </Field>
                 <ErrorMessage
                   name="departmentId"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -195,33 +195,33 @@ function TicketAddModal(props) {
                     field: { value },
                     form: { setFieldValue, setFieldTouched },
                   }) => (
-                    <Select
-                      mode="multiple"
-                      style={{ width: "100% " }}
-                      onChange={(value, option) => {
-                        setFieldValue("employeesIds", value);
-                        onChange && onChange(value, option);
-                      }}
-                      onBlur={(value) => {
-                        setFieldTouched("employeesIds");
-                        onBlur && onBlur(value);
-                      }}
-                      placeholder="Select Employees"
-                      // setting undefined will show the placeholder
-                      value={value === "" || value === null ? undefined : value}
-                      {...restProps}
-                    >
-                      {filtredEmployees.map((element) => (
-                        <Option value={element._id} key={element._id}>
-                          {element.name}
-                        </Option>
-                      ))}
-                    </Select>
-                  )}
+                      <Select
+                        mode="multiple"
+                        style={{ width: "100% " }}
+                        onChange={(value, option) => {
+                          setFieldValue("employeesIds", value);
+                          onChange && onChange(value, option);
+                        }}
+                        onBlur={(value) => {
+                          setFieldTouched("employeesIds");
+                          onBlur && onBlur(value);
+                        }}
+                        placeholder="Select Employees"
+                        // setting undefined will show the placeholder
+                        value={value === "" || value === null ? undefined : value}
+                        {...restProps}
+                      >
+                        {filtredEmployees.map((element) => (
+                          <Option value={element._id} key={element._id}>
+                            {element.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
                 </Field>
                 <ErrorMessage
                   name="employeesIds"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -237,7 +237,7 @@ function TicketAddModal(props) {
                 />
                 <ErrorMessage
                   name="message"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -250,24 +250,24 @@ function TicketAddModal(props) {
                     field: { value },
                     form: { setFieldValue, setFieldTouched },
                   }) => (
-                    <Radio.Group
-                      value={value}
-                      onChange={(event) => {
-                        setFieldValue("priority", event.target.value);
-                        setFieldTouched("priority", true, false);
-                        onChange && onChange(event);
-                      }}
-                      {...restProps}
-                    >
-                      <Radio value={"high"}>High</Radio>
-                      <Radio value={"medium"}>Medium</Radio>
-                      <Radio value={"low"}>Low</Radio>
-                    </Radio.Group>
-                  )}
+                      <Radio.Group
+                        value={value}
+                        onChange={(event) => {
+                          setFieldValue("priority", event.target.value);
+                          setFieldTouched("priority", true, false);
+                          onChange && onChange(event);
+                        }}
+                        {...restProps}
+                      >
+                        <Radio value={"high"}>High</Radio>
+                        <Radio value={"medium"}>Medium</Radio>
+                        <Radio value={"low"}>Low</Radio>
+                      </Radio.Group>
+                    )}
                 </Field>
                 <ErrorMessage
                   name="priority"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2' }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>

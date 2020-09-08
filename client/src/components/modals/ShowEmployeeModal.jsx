@@ -20,6 +20,10 @@ const validationSchema = Yup.object().shape({
     .max(70, "Too Long!")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
+  mobile: Yup.string()
+    .min(2, "Too Short!")
+    .max(70, "Too Long!")
+    .required("Required"),
 });
 
 function EmployeesShowModal(props) {
@@ -29,7 +33,7 @@ function EmployeesShowModal(props) {
 
   useEffect(() => {
     if (EmployeeID) {
-      return props.EmployeeById(EmployeeID), props.getDepartments();
+      return props.EmployeeById(EmployeeID), props.getDepartments()
     }
   }, [EmployeeID]);
 
@@ -83,18 +87,18 @@ function EmployeesShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="name"
-                    className="form__inputr"
-                    placeholder="Enter You're Full Name"
-                    type="text"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <Field
+                      name="name"
+                      className="form__inputr"
+                      placeholder="Enter You're Full Name"
+                      type="text"
+                      as={Input}
+                      disabled={disabled}
+                    />
+                  )}
                 <ErrorMessage
                   name="name"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -104,14 +108,18 @@ function EmployeesShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="email"
-                    placeholder="Enter You're Email"
-                    type="email"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <Field
+                      name="email"
+                      placeholder="Enter You're Email"
+                      type="email"
+                      as={Input}
+                      disabled={disabled}
+                    />
+                  )}
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -120,14 +128,18 @@ function EmployeesShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field
-                    name="mobile"
-                    placeholder="Enter You're Mobile"
-                    type="number"
-                    as={Input}
-                    disabled={disabled}
-                  />
-                )}
+                    <Field
+                      name="mobile"
+                      placeholder="Enter You're Mobile"
+                      type="number"
+                      as={Input}
+                      disabled={disabled}
+                    />
+                  )}
+                <ErrorMessage
+                  name="mobile"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -136,38 +148,42 @@ function EmployeesShowModal(props) {
                 {props.loading ? (
                   <Spin />
                 ) : (
-                  <Field name="department" validate={validate} fast={fast}>
-                    {({
-                      field: { value },
-                      form: { setFieldValue, setFieldTouched },
-                    }) => (
-                      <Select
-                        style={{ width: "100% " }}
-                        onChange={(value, option) => {
-                          setFieldValue("department", value);
-                          onChange && onChange(value, option);
-                        }}
-                        disabled={true}
-                        onBlur={(value) => {
-                          setFieldTouched("department");
-                          onBlur && onBlur(value);
-                        }}
-                        placeholder="Select Department"
-                        // setting undefined will show the placeholder
-                        value={
-                          value === "" || value === null ? undefined : value
-                        }
-                        {...restProps}
-                      >
-                        {departments.map((dep) => (
-                          <Option value={dep._id} key={dep._id}>
-                            {dep.name}
-                          </Option>
-                        ))}
-                      </Select>
-                    )}
-                  </Field>
-                )}
+                    <Field name="department" validate={validate} fast={fast}>
+                      {({
+                        field: { value },
+                        form: { setFieldValue, setFieldTouched },
+                      }) => (
+                          <Select
+                            style={{ width: "100% " }}
+                            onChange={(value, option) => {
+                              setFieldValue("department", value);
+                              onChange && onChange(value, option);
+                            }}
+                            disabled={disabled ? true : !employee?.department?._id ? false : true}
+                            onBlur={(value) => {
+                              setFieldTouched("department");
+                              onBlur && onBlur(value);
+                            }}
+                            placeholder="Select Department"
+                            // setting undefined will show the placeholder
+                            value={
+                              value === "" || value === null ? undefined : value
+                            }
+                            {...restProps}
+                          >
+                            {departments.map((dep) => (
+                              <Option value={dep._id} key={dep._id}>
+                                {dep.name}
+                              </Option>
+                            ))}
+                          </Select>
+                        )}
+                    </Field>
+                  )}
+                <ErrorMessage
+                  name="department"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
 

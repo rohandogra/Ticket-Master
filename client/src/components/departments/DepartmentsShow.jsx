@@ -33,7 +33,7 @@ function DepartmentsShow(props) {
         bordered
         loading={props.loading}
         dataSource={props.department.map((ele) => ele)}
-        pagination={true}
+        pagination={false}
         renderItem={(item) => (
           <List.Item
             actions={[
