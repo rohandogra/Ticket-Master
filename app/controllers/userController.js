@@ -1,13 +1,13 @@
-const { User } = require("../models/user");
-const { registerValidation, loginValidation } = require("../validation");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const { User } = require('../models/user');
+const { registerValidation, loginValidation } = require('../validation');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const client = require("twilio")(
+const client = require('twilio')(
   process.env.ACCOUNT_SSID_TWILIO,
   process.env.AUTH_TOKEN_TWILIO
 );
-const otpGenerator = require("otp-generator");
+const otpGenerator = require('otp-generator');
 
 let Otp;
 
@@ -18,7 +18,7 @@ module.exports.register = async (req, res) => {
 
   //* Checking if the user is already in the database
   const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).send("Email already exists");
+  if (emailExists) return res.status(400).send('Email already exists');
 
   //* Hash passwords
   const salt = await bcrypt.genSalt(10);
@@ -47,7 +47,7 @@ module.exports.login = async (req, res) => {
   //* Checking if the email is correct
   const user = await User.findOne({ email: req.body.email });
 
-  if (!user) return res.status(400).send("Email or Password is wrong");
+  if (!user) return res.status(400).send('Email or Password is wrong');
 
   //* Checking if Password is correct
   if (req.body.password) {
@@ -56,13 +56,13 @@ module.exports.login = async (req, res) => {
       user.password
     );
     if (!passwordCheck)
-      return res.status(400).send("Email or Password is wrong");
+      return res.status(400).send('Email or Password is wrong');
 
     //* Create and assign a token
-    const token = jwt.sign({ _id: user._id }, "process.env.TOKEN_SECRET", {
-      expiresIn: "24h",
+    const token = jwt.sign({ _id: user._id }, 'process.env.TOKEN_SECRET', {
+      expiresIn: '24h',
     });
-    req.header("Authorization", token);
+    req.header('Authorization', token);
     res.status(200).json({ token });
   }
 
@@ -74,28 +74,28 @@ module.exports.login = async (req, res) => {
       alphabets: false,
     });
 
-    if (!user.mobile) return res.status(400).send("No number registred");
+    if (!user.mobile) return res.status(400).send('No number registred');
     if (req.body.isOtp === true && !req.body.otp) {
       client.messages
         .create({
           body: `Your Opt is - ${Otp}`,
-          from: "+12055309483",
+          from: '+12055309483',
           to: `+91 ${user.mobile}`,
         })
         .then((res) => {
           // console.log(res.message);
         })
         .catch((err) => console.log(err));
-      res.status(200).send("Otp has been sent to the registreg mobile number");
+      res.status(200).send('Otp has been sent to the registreg mobile number');
     }
   }
   if (req.body.otp && req.body.email) {
     if (Otp != req.body.otp)
-      return res.status(400).send("Otp entered is wrong");
-    const token = jwt.sign({ _id: user._id }, "process.env.TOKEN_SECRET", {
-      expiresIn: "24h",
+      return res.status(400).send('Otp entered is wrong');
+    const token = jwt.sign({ _id: user._id }, 'process.env.TOKEN_SECRET', {
+      expiresIn: '24h',
     });
-    req.header("Authorization", token);
+    req.header('Authorization', token);
     res.status(200).json({ token });
   }
 };
