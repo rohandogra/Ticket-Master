@@ -4,19 +4,19 @@ import { connect } from "react-redux";
 import { showModal } from "../../redux/actions/modalsAction";
 import { createCustomers } from "../../redux/actions/customerAction";
 import { withRouter } from "react-router-dom";
-import { Formik, Field, Form } from "formik";
-// import * as Yup from "yup";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import "./formModal.scss";
 import PageTitle from "../utilityComponents/PageTitle";
 
-// const validationSchema = Yup.object().shape({
-//   name: Yup.string().required("Required"),
-//   module: Yup.number()
-//     .min(10, "Too Short!")
-//     .max(10, "Too Long!")
-//     .required("Required"),
-//   email: Yup.string().email("Invalid email").required("Required"),
-// });
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  mobile: Yup.number()
+    .min(10, "Too Short!")
+    .max(10, "Too Long!")
+    .required("Required")
+});
 
 function CustomerAddModal(props) {
   return (
@@ -35,7 +35,7 @@ function CustomerAddModal(props) {
     >
       <Formik
         initialValues={{ name: "", email: "", mobile: "" }}
-        // validate={validationSchema}
+        validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
           props.createCustomers(values);
           resetForm();
@@ -59,6 +59,10 @@ function CustomerAddModal(props) {
                   type="text"
                   as={Input}
                 />
+                <ErrorMessage
+                  name="name"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -70,6 +74,10 @@ function CustomerAddModal(props) {
                   type="email"
                   as={Input}
                 />
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -80,6 +88,10 @@ function CustomerAddModal(props) {
                   placeholder="Enter You're Mobile"
                   type="number"
                   as={Input}
+                />
+                <ErrorMessage
+                  name="mobile"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>

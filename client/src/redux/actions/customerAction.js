@@ -1,11 +1,11 @@
-import * as types from "../constant";
-import axios from "../../config/axios";
-import { message } from "antd";
+import * as types from '../constant';
+import axios from '../../config/axios';
+import { message } from 'antd';
 
 const getCustomers = (history) => (dispatch) => {
   dispatch({ type: types.CUSTOMERS_LOADER, payload: true });
   axios
-    .get("/customers")
+    .get('/customers')
     .then((response) => {
       dispatch({ type: types.CUSTOMERS_LOADER, payload: false });
       dispatch({
@@ -36,11 +36,11 @@ const getCustomerById = (id) => (dispatch) => {
 
 const createCustomers = (formData, history) => (dispatch) => {
   axios
-    .post("/customers", formData)
+    .post('/customers', formData)
     .then((response) => {
       if (response) {
         dispatch(getCustomers());
-        message.success("Customer Created Successfully");
+        message.success('Customer Created Successfully');
       }
     })
     .catch((err) => {
@@ -52,7 +52,7 @@ const deleteCustomer = (id) => (dispatch) => {
   axios
     .delete(`/customers/${id}`)
     .then((_) => {
-      message.success("Customer Deleted Successfully");
+      message.success('Customer Deleted Successfully');
       dispatch(getCustomers());
     })
     .catch((err) => {
@@ -61,12 +61,11 @@ const deleteCustomer = (id) => (dispatch) => {
 };
 
 const updateCustomer = (data, id) => (dispatch) => {
-  console.log(data, "updateCustomer");
   axios
     .put(`/customers/${id}`, data)
     .then((res) => {
       dispatch(getCustomerById(id));
-      // dispatch(getCustomers());
+      dispatch(getCustomers());
     })
     .catch((err) => {
       message.error(err.message);

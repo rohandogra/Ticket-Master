@@ -133,3 +133,14 @@ ant-radio-inner::after {
   /* border-color: #d9d9d9 !important; */
   cursor: not-allowed;
 }
+
+
+.ant-table-wrapper {
+ 
+  overflow-y: scroll;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}

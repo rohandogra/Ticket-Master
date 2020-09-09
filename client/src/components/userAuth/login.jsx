@@ -1,11 +1,19 @@
 import React, { useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-import { Input, Button } from "antd";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Input, Button, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { withRouter, Redirect, useLocation } from "react-router-dom";
 import { login } from "../../redux/actions/auth";
+import * as Yup from "yup";
 import "./auth.scss";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is Required"),
+  password: Yup.string()
+    .min(6, "Too Short!")
+    .required("Password is Required")
+});
 
 function Login(props) {
   const token = localStorage.getItem("token");
@@ -21,6 +29,7 @@ function Login(props) {
         <div className="login-card">
           <Formik
             initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
             onSubmit={(values) => {
               props.login(values, props.history);
             }}
@@ -30,7 +39,13 @@ function Login(props) {
                 <div className="login-text">Login</div>
                 <Form onSubmit={handleSubmit}>
                   <div className="input-wrapper mb-3">
-                    <label className="">Email</label>
+                    <div className='d-flex'>
+                      <label className='float-right'>Email</label>
+                      <ErrorMessage
+                        name="email"
+                        render={(msg) => <div className='ml-2' style={{ color: "red", fontSize: '12px', lineHeight: '2' }}>{`*${msg}`}</div>}
+                      />
+                    </div>
                     <Field
                       className=""
                       name="email"
@@ -46,9 +61,16 @@ function Login(props) {
                         />
                       }
                     />
+
                   </div>
                   <div className="input-wrapper">
-                    <label className="">Password</label>
+                    <div className='d-flex'>
+                      <label>Password</label>
+                      <ErrorMessage
+                        name="password"
+                        render={(msg) => <div className='ml-2' style={{ color: "red", fontSize: '12px', lineHeight: '2' }}>{`*${msg}`}</div>}
+                      />
+                    </div>
                     <Field
                       className=""
                       name="password"
@@ -86,21 +108,21 @@ function Login(props) {
                   </div>
                 </Form>
                 <div className="sign-up">
-                  <div className="sign-up-text-1">Or Sign Up</div>
-                  <div
-                    className="sign-up-text-2"
+                  <Divider>Or Sign Up</Divider>
+                  <Button
+                    className="float-right"
                     onClick={() => props.history.push("/register")}
                   >
                     SIGN UP
-                  </div>
+                  </Button>
                 </div>
               </div>
             )}
           </Formik>
         </div>
       ) : (
-        <Redirect to={`${location.pathname}`} />
-      )}
+          <Redirect to={`${location.pathname}`} />
+        )}
     </div>
   );
 }

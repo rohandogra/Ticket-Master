@@ -16,6 +16,11 @@ const validationSchema = Yup.object().shape({
     .max(70, "Too Long!")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
+  mobile: Yup.string()
+    .min(10, "Too Short!")
+    .required("Required"),
+  department: Yup.string()
+    .required("Required"),
 });
 
 function EmployeesAddModal(props) {
@@ -73,7 +78,7 @@ function EmployeesAddModal(props) {
                 />
                 <ErrorMessage
                   name="name"
-                  render={(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
                 />
               </div>
             </div>
@@ -86,6 +91,10 @@ function EmployeesAddModal(props) {
                   type="email"
                   as={Input}
                 />
+                <ErrorMessage
+                  name="email"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -97,6 +106,10 @@ function EmployeesAddModal(props) {
                   type="number"
                   as={Input}
                 />
+                <ErrorMessage
+                  name="mobile"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="form__inputContainer">
@@ -107,29 +120,33 @@ function EmployeesAddModal(props) {
                     field: { value },
                     form: { setFieldValue, setFieldTouched },
                   }) => (
-                    <Select
-                      style={{ width: "100% " }}
-                      onChange={(value, option) => {
-                        setFieldValue("department", value);
-                        onChange && onChange(value, option);
-                      }}
-                      onBlur={(value) => {
-                        setFieldTouched("department");
-                        onBlur && onBlur(value);
-                      }}
-                      placeholder="Select Department"
-                      // setting undefined will show the placeholder
-                      value={value === "" || value === null ? undefined : value}
-                      {...restProps}
-                    >
-                      {departments.map((dep) => (
-                        <Option value={dep._id} key={dep._id}>
-                          {dep.name}
-                        </Option>
-                      ))}
-                    </Select>
-                  )}
+                      <Select
+                        style={{ width: "100% " }}
+                        onChange={(value, option) => {
+                          setFieldValue("department", value);
+                          onChange && onChange(value, option);
+                        }}
+                        onBlur={(value) => {
+                          setFieldTouched("department");
+                          onBlur && onBlur(value);
+                        }}
+                        placeholder="Select Department"
+                        // setting undefined will show the placeholder
+                        value={value === "" || value === null ? undefined : value}
+                        {...restProps}
+                      >
+                        {departments.map((dep) => (
+                          <Option value={dep._id} key={dep._id}>
+                            {dep.name}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
                 </Field>
+                <ErrorMessage
+                  name="department"
+                  render={(msg) => <div style={{ color: "red", fontSize: '12px', lineHeight: '2', marginBottom: "-20px" }}>{`*${msg}`}</div>}
+                />
               </div>
             </div>
             <div className="modal__btn">

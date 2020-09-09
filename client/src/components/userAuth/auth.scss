@@ -1,24 +1,29 @@
 .login-form {
   width: 100%;
-  padding: 15px;
+  // padding: 15px;
   .login-card {
-    margin-right: auto;
-    margin-left: auto;
+    // margin-top: 1rem;
+    // margin-bottom: auto;
+    // display: block;
+    // margin-right: auto;
+    // margin-left: auto;margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     width: 500px;
     box-shadow: 0 20px 50px rgba(8, 112, 184, 0.7);
     border-radius: 10px;
     background-color: #ffffff;
     padding-left: 55px;
     padding-right: 55px;
-    padding-top: 65px;
-    padding-bottom: 55px;
+    padding-top: 30px;
+    padding-bottom: 15px;
     overflow: hidden;
-    margin-top: 4rem;
-    margin-bottom: 4rem;
 
     .login-form {
       width: 100%;
-      //   padding: 0;
       .login-text {
         display: block;
         text-align: center;
@@ -26,7 +31,7 @@
         color: #333333;
         font-size: 39px;
         font-family: Poppins-Bold;
-        padding-bottom: 49px;
+        padding-bottom: 35px;
       }
       .input-wrapper {
         width: 100%;
@@ -71,12 +76,12 @@
       }
       .sign-up {
         text-align: center;
-        padding-top: 5rem;
+        padding-top: 0.5rem;
         .sign-up-text-1 {
           font-family: Poppins-Regular;
           font-size: 14px;
           color: #666666;
-          margin-bottom: 1rem;
+          margin-bottom: 2rem;
         }
         .sign-up-text-2 {
           font-family: Poppins-Regular;

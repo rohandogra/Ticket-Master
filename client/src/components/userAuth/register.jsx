@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-import { Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { register } from "../../redux/actions/auth";
-import "./auth.scss";
+import React, { useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { Input, Button, Divider } from 'antd';
+import { UserOutlined, LockOutlined, MobileOutlined, MailOutlined } from '@ant-design/icons'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { register } from '../../redux/actions/auth'
+import "./auth.scss"
 
 function Register(props) {
   useEffect(() => {
@@ -24,51 +24,33 @@ function Register(props) {
             <div className="login-form">
               <div className="login-text">Register</div>
               <Form onSubmit={handleSubmit}>
-                <div className="input-wrapper mb-3">
-                  <label className="">User Name</label>
-                  <Field
-                    className=""
-                    name="user_name"
-                    type="text"
-                    placeholder="Type your User Name"
-                    as={Input}
-                    prefix={
-                      <UserOutlined
-                        style={{
-                          fontSize: 22,
-                          color: "#adadad",
-                        }}
-                      />
-                    }
-                  />
+                <div className='input-wrapper mb-3'>
+                  <label className=''>User Name</label>
+                  <Field name='user_name' type='text' placeholder='Type your User Name' as={Input} prefix={<UserOutlined style={{
+                    fontSize: 22,
+                    color: '#adadad',
+                  }} />} />
                 </div>
-                <div className="input-wrapper mb-3">
-                  <label className="">Email</label>
-                  <Field
-                    className=""
-                    name="email"
-                    type="text"
-                    placeholder="Type your Email"
-                    as={Input}
-                    prefix={
-                      <UserOutlined
-                        style={{
-                          fontSize: 22,
-                          color: "#adadad",
-                        }}
-                      />
-                    }
-                  />
+                <div className='input-wrapper mb-3'>
+                  <label className=''>Email</label>
+                  <Field name='email' type='text' placeholder='Type your Email' as={Input} prefix={<MailOutlined style={{
+                    fontSize: 22,
+                    color: '#adadad',
+                  }} />} />
                 </div>
-                <div className="input-wrapper mb-3">
-                  <label className="">Mobile</label>
-                  <Field
-                    className=""
-                    name="mobile"
-                    type="number"
-                    placeholder="Enter you're Mobile"
-                    as={Input}
-                  />
+                <div className='input-wrapper mb-3'>
+                  <label className=''>Mobile</label>
+                  <Field name='mobile' type='text' placeholder='Type your Mobile Number' as={Input} prefix={<MobileOutlined style={{
+                    fontSize: 22,
+                    color: '#adadad',
+                  }} />} />
+                </div>
+                <div className='input-wrapper'>
+                  <label className=''>Password</label>
+                  <Field name='password' type='password' placeholder="Type your password" as={Input} prefix={<LockOutlined style={{
+                    fontSize: 22,
+                    color: '#adadad',
+                  }} />} />
                 </div>
                 <div className="input-wrapper">
                   <label className="">Password</label>
@@ -88,20 +70,12 @@ function Register(props) {
                     }
                   />
                 </div>
-                <div className="login-btn">
-                  <Button htmlType="submit" type="primary" size="large">
-                    Register
-                  </Button>
-                </div>
               </Form>
-              <div className="sign-up">
-                <div className="sign-up-text-1">Or Login</div>
-                <div
-                  className="sign-up-text-2"
-                  onClick={() => props.history.push("/login")}
-                >
+              <div className='sign-up'>
+                <Divider>Or Login</Divider>
+                <Button className='float-right' onClick={() => props.history.push('/login')}>
                   Login
-                </div>
+                </Button>
               </div>
             </div>
           )}

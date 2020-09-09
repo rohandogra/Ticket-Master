@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, Button } from "antd";
-import { UserOutlined, MobileOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { login } from "../../redux/actions/auth";
@@ -18,7 +18,6 @@ function LoginOtp(props) {
         <Formik
           initialValues={{ email: "", isOtp: true }}
           onSubmit={(values) => {
-            console.log(values);
             localStorage.setItem("email", values.email);
             props.login(values, props.history);
           }}

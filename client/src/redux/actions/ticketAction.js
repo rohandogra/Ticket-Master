@@ -1,11 +1,11 @@
-import * as types from "../constant";
-import axios from "../../config/axios";
-import { message } from "antd";
+import * as types from '../constant';
+import axios from '../../config/axios';
+import { message } from 'antd';
 
 const getTickets = () => (dispatch) => {
   dispatch({ type: types.TICKET_LOADER, payload: true });
   axios
-    .get("/tickets?page=0&&limit=10")
+    .get('/tickets?page=0&&limit=10')
     .then((response) => {
       dispatch({ type: types.TICKET_LOADER, payload: false });
       dispatch({
@@ -36,9 +36,9 @@ const getTicketById = (id) => (dispatch) => {
 
 const createTicket = (data) => (dispatch) => {
   axios
-    .post("/tickets", data)
+    .post('/tickets', data)
     .then((_) => {
-      message.success("Ticket Created Successfully.");
+      message.success('Ticket Created Successfully.');
       dispatch(getTickets());
     })
     .catch((err) => {
@@ -47,11 +47,10 @@ const createTicket = (data) => (dispatch) => {
 };
 
 const updateTicket = (id, data) => (dispatch) => {
-  console.log(id, data, "action");
   axios
     .put(`/tickets/${id}`, data)
     .then((_) => {
-      message.success("Ticket Updated successfully");
+      message.success('Ticket Updated successfully');
       dispatch(getTickets());
     })
     .catch((err) => message.error(err.message));
@@ -61,7 +60,7 @@ const deleteTicket = (id) => (dispatch) => {
   axios
     .delete(`/tickets/${id}`)
     .then((_) => {
-      message.success("Ticket Deleted successfully");
+      message.success('Ticket Deleted successfully');
       dispatch(getTickets());
     })
     .catch((err) => message.error(err.message));
