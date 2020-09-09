@@ -13,7 +13,7 @@ const NavBar = (props) => {
 
   return (
     <Header>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={location}>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={location} >
         <Menu.Item key="home">
           <Link to="/home">Home</Link>
         </Menu.Item>
